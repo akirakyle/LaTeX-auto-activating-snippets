@@ -185,10 +185,6 @@ it is restored only once."
                   (default-value 'post-self-insert-hook))
       (push #'laas--restore-smartparens-hook (default-value 'post-self-insert-hook)))))
 
-(defun laas-frac-cond ()
-  (cond ((and (= (char-before) ?/) (laas-mathp)) 'standalone-frac)
-        ((laas-object-on-left-condition) 'wrapping-frac)))
-
 (defun laas-smart-fraction ()
   "Expansion function used for auto-subscript snippets."
   (interactive)
@@ -404,14 +400,12 @@ it is restored only once."
   "Automatic subscripts! Expand In math and after a single letter.")
 
 (defvar laas-frac-snippet
-  '(:cond laas-frac-cond
-    :expansion-desc "See the docs of `laas-frac-snippet'"
-    "/" laas-smart-fraction)
+  '(:cond laas-mathp
+          :expansion-desc "See the docs of `laas-frac-snippet'"
+          "//" laas-smart-fraction)
   "Frac snippet.
-Expand to a template frac after //, or wrap the object before point if it
-isn't /.
+Expand to a template frac after //
 
-ab/ => \\frac{ab}{}
 // => \\frac{}{}")
 
 (defun laas-latex-accent-cond ()
