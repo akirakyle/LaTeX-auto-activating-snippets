@@ -185,42 +185,47 @@ it is restored only once."
                   (default-value 'post-self-insert-hook))
       (push #'laas--restore-smartparens-hook (default-value 'post-self-insert-hook)))))
 
+;;(defun laas-smart-fraction ()
+;;  "Expansion function used for auto-subscript snippets."
+;;  (interactive)
+;;  (pcase aas-transient-snippet-condition-result
+;;    ('standalone-frac
+;;     (delete-char -1) ;; delete the previous / that isn't part of the key
+;;     (cond
+;;      ((featurep 'tempel)
+;;       (tempel-insert (list "\\frac{" 'p "}{" 'p "}")))
+;;      ((featurep 'yasnippet)
+;;       (yas-expand-snippet "\\frac{$1}{$2}$0"))
+;;      (t (insert "\\frac{}{}")
+;;         (forward-char -3))))
+;;    ('wrapping-frac
+;;     (let* ((tex-obj (laas-identify-adjacent-tex-object))
+;;            (start (save-excursion
+;;                     ;; if bracketed, delete outermost brackets
+;;                     (if (memq (char-before) '(?\) ?\]))
+;;                         (progn
+;;                           (backward-delete-char 1)
+;;                           (goto-char tex-obj)
+;;                           (delete-char 1))
+;;                       (goto-char tex-obj))
+;;                     (point)))
+;;            (end (point))
+;;            (content (buffer-substring-no-properties start end)))
+;;       (delete-region start end)
+;;       (cond
+;;        ((featurep 'tempel)
+;;         (tempel-insert (list "\\frac{" content "}{" 'p "}")))
+;;        ((featurep 'yasnippet)
+;;         (yas-expand-snippet (format "\\frac{%s}{$2}$0" content)))
+;;        (t (insert "\\frac{" content "}{}")
+;;           (forward-char -1))))))
+;;  (when (featurep 'smartparens)
+;;    (laas--shut-up-smartparens)))
+
 (defun laas-smart-fraction ()
   "Expansion function used for auto-subscript snippets."
   (interactive)
-  (pcase aas-transient-snippet-condition-result
-    ('standalone-frac
-     (delete-char -1) ;; delete the previous / that isn't part of the key
-     (cond
-      ((featurep 'tempel)
-       (tempel-insert (list "\\frac{" 'p "}{" 'p "}")))
-      ((featurep 'yasnippet)
-       (yas-expand-snippet "\\frac{$1}{$2}$0"))
-      (t (insert "\\frac{}{}")
-         (forward-char -3))))
-    ('wrapping-frac
-     (let* ((tex-obj (laas-identify-adjacent-tex-object))
-            (start (save-excursion
-                     ;; if bracketed, delete outermost brackets
-                     (if (memq (char-before) '(?\) ?\]))
-                         (progn
-                           (backward-delete-char 1)
-                           (goto-char tex-obj)
-                           (delete-char 1))
-                       (goto-char tex-obj))
-                     (point)))
-            (end (point))
-            (content (buffer-substring-no-properties start end)))
-       (delete-region start end)
-       (cond
-        ((featurep 'tempel)
-         (tempel-insert (list "\\frac{" content "}{" 'p "}")))
-        ((featurep 'yasnippet)
-         (yas-expand-snippet (format "\\frac{%s}{$2}$0" content)))
-        (t (insert "\\frac{" content "}{}")
-           (forward-char -1))))))
-  (when (featurep 'smartparens)
-    (laas--shut-up-smartparens)))
+  (tempel-insert (list "\\frac{" 'p "}{" 'p "}")))
 
 (defvar laas-basic-snippets
   '(:cond laas-mathp
