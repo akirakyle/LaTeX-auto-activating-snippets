@@ -420,7 +420,7 @@ Expand to a template frac after //
 
 (defun laas-accent--rm () (interactive)   (laas-wrap-previous-object (if (laas-mathp) "mathrm" "textrm")))
 (defun laas-accent--it () (interactive)   (laas-wrap-previous-object (if (laas-mathp) "mathit" "textit")))
-(defun laas-accent--bf () (interactive)   (laas-wrap-previous-object (if (laas-mathp) "mathbf" "textbf")))
+(defun laas-accent--bf () (interactive)   (laas-wrap-previous-object (if (laas-mathp) "mathbb" "textbf")))
 (defun laas-accent--emph () (interactive) (laas-wrap-previous-object (if (laas-mathp) "mathem" "emph")))
 (defun laas-accent--tt () (interactive)   (laas-wrap-previous-object (if (laas-mathp) "mathtt" "texttt")))
 (defun laas-accent--sf () (interactive)   (laas-wrap-previous-object (if (laas-mathp) "mathsf" "textsf")))
@@ -429,7 +429,7 @@ Expand to a template frac after //
     :cond laas-latex-accent-cond
     :expansion-desc "Wrap in \\mathrm{} or \\textrm{}"     "'r" laas-accent--rm
     :expansion-desc "Wrap in \\mathit{} or \\textit{}"     "'i" laas-accent--it
-    :expansion-desc "Wrap in \\mathbf{} or \\textbf{}"     "'b" laas-accent--bf
+    :expansion-desc "Wrap in \\mathbb{} or \\textbf{}"     "'b" laas-accent--bf
     :expansion-desc "Wrap in \\mathemph{} or \\textemph{}" "'e" laas-accent--emph
     :expansion-desc "Wrap in \\mathtt{} or \\texttt{}"     "'y" laas-accent--tt
     :expansion-desc "Wrap in \\mathsf{} or \\textsf{}"     "'f" laas-accent--sf
